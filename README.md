@@ -2,6 +2,12 @@
 
 一个简单的React验证码组件
 
+## 0. 示例图
+
+![image](https://github.com/javaLuo/react-vcode/example/assets/test1.png)
+
+![image](https://github.com/javaLuo/react-vcode/example/assets/test1.png)
+
 ## 1. 安装
 
 ````
