@@ -10,6 +10,8 @@ class Test extends React.Component {
       input2: '', // 第2个input的值
       vcode1: '', // 第1个vcode的值
       vcode2: '', // 第2个vcode的值
+      code: '',
+      testinput: '',
     };
   }
 
@@ -20,8 +22,10 @@ class Test extends React.Component {
   }
 
   onVcode1Change(v) {
+    console.log()
     this.setState({
       vcode1: v,
+      code: this.state.testinput
     });
   }
 
@@ -37,6 +41,17 @@ class Test extends React.Component {
     });
   }
 
+  onButton() {
+    this.setState({
+      code: this.state.testinput
+    });
+  }
+
+  onTestInput(e) {
+    this.setState({
+      testinput: e.target.value 
+    });
+  }
   render() {
     return (
       <div>
@@ -45,8 +60,11 @@ class Test extends React.Component {
           <input type='text' value={this.state.input1} onChange={(e) => this.onInput1Change(e)} maxLength={10} />
           <Vcode
             onChange={(v) => this.onVcode1Change(v)}
+            value={this.state.code}
           />
           <span>{this.state.input1 === this.state.vcode1 ? 'success' : 'error'}</span>
+          <input value={this.state.testinput} onChange={(e) => this.onTestInput(e)}/>
+          <button onClick={() => this.onButton()}>手动改变</button>
         </div>
         <hr />
         <div>
@@ -57,8 +75,8 @@ class Test extends React.Component {
             length={6}
             width={200}
             height={100}
+            value='Hello World'
             className="classNameTest"
-            style={{ backgroundColor: '#cccccc' }}
             options={{
               codes: ['A', 'B', 'C', 'D', 'E'],
               lines: 20,

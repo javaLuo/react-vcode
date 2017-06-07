@@ -70,7 +70,7 @@ module.exports = {
     // Uglify 加密压缩源代码
     new webpack.optimize.UglifyJsPlugin({
         output: {
-            comments: false, // 删除代码中所有注释
+            comments: false, // 是否保留代码格式和所有注释
         },
         compress: {
             warnings: false, // 删除没有用的代码时是否发出警告

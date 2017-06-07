@@ -7,7 +7,7 @@ class Vcode extends React.Component {
       id: this.props.id || `${new Date().getTime()}_${Math.random().toFixed(4)}`, // 需要一个唯一的ID，因为vcode要直接操作dom
       width: this.props.width || 150,   // vcode宽度
       height: this.props.height || 40,  // vcode高度
-      length: this.props.length || 4,   // 生成几位code
+      len: this.props.length || 4,      // 生成几位code
       style: (() => {                   // vcode容器样式
         const a = {
           position: 'relative',
@@ -34,8 +34,8 @@ class Vcode extends React.Component {
           fontSizeMin: 22,  // 字体尺寸最小值
           fontSizeMax: 26,  // 字体尺寸最大值
           colors: [         // 字可能的颜色
-            '117cb3',
-            'f47b06',
+            '#117cb3',
+            '#f47b06',
             '#202890',
             '#db1821',
             '#b812c2',
@@ -71,47 +71,86 @@ class Vcode extends React.Component {
 
   /** 组件初始化完毕时触发 **/
   componentDidMount() {
-    this.onDraw();
+    this.onDraw(this.props.value);
+  }
+
+  /** 组件参数改变 **/
+  componentWillReceiveProps(nextP) {
+    if(this.props.value !== nextP.value) {
+      this.onDraw(nextP.value);
+    }
   }
 
   /** 用户点击的验证码图片 **/
   onClick() {
     const div = document.getElementById(this.state.id);
     div.innerHTML = '';
-    this.onDraw();
+    this.onDraw(this.props.value);
   }
 
   /** 随机生成验证码 **/
-  onDraw() {
+  onDraw(value) {
     let c = '';                                             // 存储生成的code
     const div = document.getElementById(this.state.id);
-    const uW = this.state.width / this.state.length;        // 每个字符占的宽度
+    div.innerHTML = '';
+    /** 生成好看的code **/
+    console.log(this.props.value);
 
-    // 生成好看的code
-    for (let i = 0; i < this.state.length; i++) {
-      const dom = document.createElement('span');
-      dom.style.cssText = [
-        `font-size:${this.randint(this.state.options.fontSizeMin,
-          this.state.options.fontSizeMax)}px`,
-        `color:${this.state.options.colors[this.randint(0,
-          this.state.options.colors.length - 1)]}`,
-        'position: absolute',
-        `left:${this.randint(uW * i, ((uW * i) + uW) - (uW / 2))}px`,
-        'top:50%',
-        `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-        `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-        `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-        `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-        `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-        `font-family:${this.state.options.fonts[this.randint(0,
-          this.state.options.fonts.length - 1)]}`,
-        'font-weight:bold',
-        'z-index:2',
-      ].join(';');
-      const temp = this.state.options.codes[(Math.round(Math.random() * (this.state.options.codes.length - 1)))];
-      dom.innerHTML = temp;
-      c = `${c}${temp}`;
-      div.appendChild(dom);
+    if(value !== undefined) { // 如果父级指定了要生成的code
+      const uW = this.state.width / value.length;        // 每个字符占的宽度
+      for (let i = 0; i < value.length; i++) {
+        const dom = document.createElement('span');
+        dom.style.cssText = [
+          `font-size:${this.randint(this.state.options.fontSizeMin,
+            this.state.options.fontSizeMax)}px`,
+          `color:${this.state.options.colors[this.randint(0,
+            this.state.options.colors.length - 1)]}`,
+          'position: absolute',
+          `left:${this.randint(uW * i, ((uW * i) + uW) - (uW / 2))}px`,
+          'top:50%',
+          `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `font-family:${this.state.options.fonts[this.randint(0,
+            this.state.options.fonts.length - 1)]}`,
+          'font-weight:bold',
+          'z-index:2',
+        ].join(';');
+        const temp = value[i];
+        dom.innerHTML = temp;
+        c = `${c}${temp}`;
+        div.appendChild(dom);
+      }
+    } else {
+      console.log('走这里');
+      const uW = this.state.width / this.state.len;        // 每个字符占的宽度
+      for (let i = 0; i < this.state.len; i++) {
+        const dom = document.createElement('span');
+        dom.style.cssText = [
+          `font-size:${this.randint(this.state.options.fontSizeMin,
+            this.state.options.fontSizeMax)}px`,
+          `color:${this.state.options.colors[this.randint(0,
+            this.state.options.colors.length - 1)]}`,
+          'position: absolute',
+          `left:${this.randint(uW * i, ((uW * i) + uW) - (uW / 2))}px`,
+          'top:50%',
+          `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+          `font-family:${this.state.options.fonts[this.randint(0,
+            this.state.options.fonts.length - 1)]}`,
+          'font-weight:bold',
+          'z-index:2',
+        ].join(';');
+        const temp = this.state.options.codes[(Math.round(Math.random() * (this.state.options.codes.length - 1)))];
+        dom.innerHTML = temp;
+        c = `${c}${temp}`;
+        div.appendChild(dom);
+      }
     }
 
     // 生成好看的线条
@@ -167,6 +206,7 @@ export default Vcode;
 /**
   id: P.string, // ID
   length: P.number,  // 生成几位字符串
+  value: P.string,  // 由父级传入指定的字符串生成code
   width: P.number,  // 多宽 px
   height: P.number,  //  多高 px
   style: P.object,    // 自定义style
