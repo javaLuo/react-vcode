@@ -4,9 +4,14 @@
 
 ## 0. 示例图
 
-![image](https://github.com/javaLuo/react-vcode/example/assets/test1.png)
+#### 基本
 
-![image](https://github.com/javaLuo/react-vcode/example/assets/test1.png)
+![image](https://github.com/javaLuo/react-vcode/blob/master/example/assets/test1.png)
+
+#### 自定义参数
+
+![image](https://github.com/javaLuo/react-vcode/blob/master/example/assets/test2.png)
+
 
 ## 1. 安装
 
