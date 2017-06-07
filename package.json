@@ -1,6 +1,6 @@
 {
   "name": "react-vcode",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a react verification code component",
   "main": "dist/index.js",
   "scripts": {
@@ -9,18 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/javaLuo/vcode.git"
+    "url": "git+https://github.com/javaLuo/react-vcode.git"
   },
   "keywords": [
     "vcode",
-    "react vcode"
+    "react-vcode"
   ],
   "author": "Logic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/javaLuo/vcode/issues"
+    "url": "https://github.com/javaLuo/react-vcode/issues"
   },
-  "homepage": "https://github.com/javaLuo/vcode#readme",
+  "homepage": "https://github.com/javaLuo/react-vcode#readme",
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
