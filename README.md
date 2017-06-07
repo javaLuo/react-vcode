@@ -5,13 +5,13 @@
 ## 1. 安装
 
 ````
-npm install react-luo
+npm install react-vcode
 ````
 
 ## 2. 使用
 
 ````
-import Vcode from 'react-luo';
+import Vcode from 'react-vcode';
 
  <Vcode />
  
