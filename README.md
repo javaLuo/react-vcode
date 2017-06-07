@@ -34,7 +34,8 @@ import Vcode from 'react-vcode';
 
 ````bash
 id                  # string  一个ID 可手动设置也可以不管，默认值：时间戳+随机数
-length: 4           # number  生成几位验证码
+value               # string  受控，可指定要生成的验证码，而不是随机生成
+length: 4           # number  生成几位验证码
 width: 150          # number  容器宽度
 height: 40          # number  容器高度
 className           # string  自定义样式class, 默认值：无
