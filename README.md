@@ -21,7 +21,7 @@ import Vcode from 'react-vcode';
 
 可自行设置覆盖原有值
 
-````
+````base
 id                  # string  一个ID 可手动设置也可以不管，默认值：时间戳+随机数
 length: 4           # number  生成几位验证码
 width: 150          # number  容器宽度
