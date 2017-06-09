@@ -97,4 +97,4 @@ options:{           # 自定义参数
 
 ## 4. 额外说明
 
-* 之前用过一个验证码插件叫 vcode.js, 不知道作者。 本react-vcode是通过vcode.js的源码进行修改加工，转成了react组件。感谢愿作者。
+* 之前用过一个验证码插件叫 vcode.js, 不知道作者。 本react-vcode是通过vcode.js的源码进行修改加工，转成了react组件。感谢原作者。
