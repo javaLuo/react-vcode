@@ -75,9 +75,15 @@ class Vcode extends React.Component {
   }
 
   /** 组件参数改变 **/
-  componentWillReceiveProps(nextP) {
+  componentWillReceiveProps(nextP, nextS) {
     if(this.props.value !== nextP.value) {
       this.onDraw(nextP.value);
+    }
+    if(this.props.width !== nextP.width || this.props.height !== nextP.height) {
+      this.setState({
+        width: nextP.width,
+        height: nextP.height,
+      });
     }
   }
 
@@ -124,7 +130,6 @@ class Vcode extends React.Component {
         div.appendChild(dom);
       }
     } else {
-      console.log('走这里');
       const uW = this.state.width / this.state.len;        // 每个字符占的宽度
       for (let i = 0; i < this.state.len; i++) {
         const dom = document.createElement('span');
