@@ -1,4 +1,4 @@
-# react-vcode
+# react-vcode [![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/react-vcode)
 
 一个简单的React验证码组件
 
