@@ -34,27 +34,14 @@ class Vcode extends React.Component {
           fontSizeMin: 22,  // 字体尺寸最小值
           fontSizeMax: 26,  // 字体尺寸最大值
           colors: [         // 字可能的颜色
-            '#117cb3',
-            '#f47b06',
-            '#202890',
-            '#db1821',
-            '#b812c2',
+            '#117cb3', '#f47b06', '#202890', '#db1821', '#b812c2',
           ],
           fonts: [          // 可能的字体
-            'Times New Roman',
-            'Georgia',
-            'Serif',
-            'sans-serif',
-            'arial',
-            'tahoma',
-            'Hiragino Sans GB',
+            'Times New Roman', 'Georgia', 'Serif', 'sans-serif', 'arial', 'tahoma', 'Hiragino Sans GB',
           ],
           lines: 8,         // 生成多少根线
           lineColors: [     // 线可能的颜色
-            '#7999e1',
-            '#383838',
-            '#ec856d',
-            '#008888',
+            '#7999e1', '#383838', '#ec856d', '#008888',
           ],
           lineHeightMin: 1, // 线的粗细最小值
           lineHeightMax: 1, // 线的粗细最大值
@@ -94,74 +81,31 @@ class Vcode extends React.Component {
     this.onDraw(this.props.value);
   }
 
-  /** 随机生成验证码 **/
-  onDraw(value) {
-    let c = '';                                             // 存储生成的code
-    const div = document.getElementById(this.state.id);
-    div.innerHTML = '';
-    /** 生成好看的code **/
-    console.log(this.props.value);
+  /** 随机生成一个Code的CSS样式 **/
+  codeCss() {
+    return [
+      `font-size:${this.randint(this.state.options.fontSizeMin,
+        this.state.options.fontSizeMax)}px`,
+      `color:${this.state.options.colors[this.randint(0,
+        this.state.options.colors.length - 1)]}`,
+      'position: absolute',
+      `left:${this.randint(uW * i, ((uW * i) + uW) - (uW / 2))}px`,
+      'top:50%',
+      `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+      `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+      `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+      `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+      `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+      `font-family:${this.state.options.fonts[this.randint(0,
+        this.state.options.fonts.length - 1)]}`,
+      'font-weight:bold',
+      'z-index:2',
+    ].join(';');
+  }
 
-    if(value !== undefined) { // 如果父级指定了要生成的code
-      const uW = this.state.width / value.length;        // 每个字符占的宽度
-      for (let i = 0; i < value.length; i++) {
-        const dom = document.createElement('span');
-        dom.style.cssText = [
-          `font-size:${this.randint(this.state.options.fontSizeMin,
-            this.state.options.fontSizeMax)}px`,
-          `color:${this.state.options.colors[this.randint(0,
-            this.state.options.colors.length - 1)]}`,
-          'position: absolute',
-          `left:${this.randint(uW * i, ((uW * i) + uW) - (uW / 2))}px`,
-          'top:50%',
-          `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `font-family:${this.state.options.fonts[this.randint(0,
-            this.state.options.fonts.length - 1)]}`,
-          'font-weight:bold',
-          'z-index:2',
-        ].join(';');
-        const temp = value[i];
-        dom.innerHTML = temp;
-        c = `${c}${temp}`;
-        div.appendChild(dom);
-      }
-    } else {
-      const uW = this.state.width / this.state.len;        // 每个字符占的宽度
-      for (let i = 0; i < this.state.len; i++) {
-        const dom = document.createElement('span');
-        dom.style.cssText = [
-          `font-size:${this.randint(this.state.options.fontSizeMin,
-            this.state.options.fontSizeMax)}px`,
-          `color:${this.state.options.colors[this.randint(0,
-            this.state.options.colors.length - 1)]}`,
-          'position: absolute',
-          `left:${this.randint(uW * i, ((uW * i) + uW) - (uW / 2))}px`,
-          'top:50%',
-          `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-          `font-family:${this.state.options.fonts[this.randint(0,
-            this.state.options.fonts.length - 1)]}`,
-          'font-weight:bold',
-          'z-index:2',
-        ].join(';');
-        const temp = this.state.options.codes[(Math.round(Math.random() * (this.state.options.codes.length - 1)))];
-        dom.innerHTML = temp;
-        c = `${c}${temp}`;
-        div.appendChild(dom);
-      }
-    }
-
-    // 生成好看的线条
-    for (let i = 0; i < this.state.options.lines; i++) {
-      const dom = document.createElement('div');
-      dom.style.cssText = [
+  /** 随机生成一条线的CSS样式 **/
+  lineCss() {
+    return [
         'position: absolute',
         `opacity:${this.randint(3, 8) / 10}`,
         `width:${this.randint(this.state.options.lineWidthMin, this.state.options.lineWidthMax)}px`,
@@ -180,6 +124,42 @@ class Vcode extends React.Component {
           this.state.options.fonts.length - 1)]}`,
         `font-weight:${this.randint(400, 900)}`,
       ].join(';');
+  }
+
+  onDraw(value) {
+    let c = '';                                             // 存储生成的code
+    const div = document.getElementById(this.state.id);
+    div.innerHTML = '';
+
+    /** 生成好看的code **/
+    const codeCss = this.codeCss();
+
+    if(value !== undefined) { // 如果父级指定了要生成的code
+      const uW = this.state.width / value.length;        // 每个字符占的宽度
+      for (let i = 0; i < value.length; i++) {
+        const dom = document.createElement('span');
+        dom.style.cssText = codeCss;
+        const temp = value[i];
+        dom.innerHTML = temp;
+        c = `${c}${temp}`;
+        div.appendChild(dom);
+      }
+    } else {
+      const uW = this.state.width / this.state.len;        // 每个字符占的宽度
+      for (let i = 0; i < this.state.len; i++) {
+        const dom = document.createElement('span');
+        dom.style.cssText = codeCss;
+        const temp = this.state.options.codes[(Math.round(Math.random() * (this.state.options.codes.length - 1)))];
+        dom.innerHTML = temp;
+        c = `${c}${temp}`;
+        div.appendChild(dom);
+      }
+    }
+
+    // 生成好看的线条
+    for (let i = 0; i < this.state.options.lines; i++) {
+      const dom = document.createElement('div');
+      dom.style.cssText = this.lineCss();
       div.appendChild(dom);
     }
     if (this.props.onChange) {
