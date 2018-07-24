@@ -1,13 +1,9 @@
 # react-vcode [![npm](https://img.shields.io/npm/v/react-vcode.svg)](https://www.npmjs.com/package/react-vcode) [![codebeat badge](https://codebeat.co/badges/6b270f5e-c8d9-4f47-9f84-2833fcf897aa)](https://codebeat.co/projects/github-com-javaluo-react-vcode-master) [![npm](https://img.shields.io/npm/dy/react-vcode.svg)](https://www.npmjs.com/package/react-vcode)
 一个简单的React验证码组件
 
-## 0. 示例图
-
-#### 基本
+## 示例图
 
 ![image](https://github.com/javaLuo/react-vcode/blob/master/example/assets/test1.png)
-
-#### 自定义参数
 
 ![image](https://github.com/javaLuo/react-vcode/blob/master/example/assets/test2.png)
 
@@ -32,14 +28,14 @@ import Vcode from 'react-vcode';
 可自行设置覆盖原有值
 
 ````bash
-id                  # string  一个ID 可手动设置也可以不管，默认值：时间戳+随机数
-value               # string  受控，可指定要生成的验证码，而不是随机生成
-length: 4           # number  生成几位验证码
-width: 150          # number  容器宽度
-height: 40          # number  容器高度
-className           # string  自定义样式class, 默认值：无
-onChange            # func    生成新的验证码时触发，将新的验证码字符串返回上级
-style: {            # object  容器样式 （注：如果在style中设置width和height,将覆盖上面通过属性设置的width和height）
+value               # string  受控，不设置的话将随机生成验证码 (支持的值: 普通字符串/网络图片路径/import的本地图片/base64图片)
+onChange            # func    回调，生成新的验证码时触发，将新的验证码字符串返回上级 (如果value字段被传入了图片，将返回null)
+onClick             # func    回调，点击组件本身时触发，外部可通过此回调来更新需要传入的验证码 (如果没设置value，点击就会自动重新生成二维码)
+length: 4           # number  生成几位验证码（没设置value时有效）
+width: 150          # number  容器宽度(px)
+height: 40          # number  容器高度(px)
+className           # string  自定义容器样式class
+style: {            # object  容器默认样式 (注：如果在style中设置width和height,将覆盖上面通过属性设置的width和height)
   position: 'relative',
   backgroundColor: '#fff',
   overflow: 'hidden',
@@ -47,8 +43,8 @@ style: {            # object  容器样式 （注：如果在style中设置
   verticalAlign: 'middle',
   userSelect: 'none',
 }
-options:{           # 自定义参数
-  codes: [          # 所有可能出现的字符
+options:{           # 验证码相关自定义参数
+  codes: [          # 所有可能出现的字符
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
     'o', 'p', 'q', 'r', 's', 't', 'x', 'u', 'v', 'y', 'z', 'w', 'n',
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -87,7 +83,6 @@ options:{           # 自定义参数
 # 例子：
 
 <Vcode
-  id='test'
   length={6}
   onChange={(v) => {console.log('当前的验证码值：', v)}}
   options={{ codes: [ 'A', 'B', 'C' ] }}
