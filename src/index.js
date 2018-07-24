@@ -62,7 +62,7 @@ class Vcode extends React.Component {
   }
 
   /** 组件参数改变 **/
-  componentWillReceiveProps(nextP, nextS) {
+  UNSAFE_componentWillReceiveProps(nextP, nextS) {
     if(this.props.value !== nextP.value) {
       this.onDraw(nextP.value);
     }
@@ -77,12 +77,16 @@ class Vcode extends React.Component {
   /** 用户点击的验证码图片 **/
   onClick() {
     const div = document.getElementById(this.state.id);
-    div.innerHTML = '';
-    this.onDraw(this.props.value);
+    // 如果this.props.value有值，表明值是外部受控，这个地方不需要重新渲染
+      let code = null;
+      if(!this.props.value){
+          code = this.onDraw(this.props.value);
+      }
+    this.props.onClick && this.props.onClick(); // 触发外部的onClick,什么都不返回
   }
 
   /** 随机生成一个Code的CSS样式 **/
-  codeCss() {
+  codeCss(uW,i) {
     return [
       `font-size:${this.randint(this.state.options.fontSizeMin,
         this.state.options.fontSizeMax)}px`,
@@ -129,32 +133,30 @@ class Vcode extends React.Component {
   onDraw(value) {
     let c = '';                                             // 存储生成的code
     const div = document.getElementById(this.state.id);
+    const isImg = /^http[s]*:\/\/|\.jpg$|\.png$|\.jpeg$|\.gif$|\.bmp$|\.webp$|^data:image/.test(value); // 是否是图片
     div.innerHTML = '';
 
-    /** 生成好看的code **/
-    const codeCss = this.codeCss();
-
-    if(value !== undefined) { // 如果父级指定了要生成的code
-      const uW = this.state.width / value.length;        // 每个字符占的宽度
-      for (let i = 0; i < value.length; i++) {
-        const dom = document.createElement('span');
-        dom.style.cssText = codeCss;
-        const temp = value[i];
-        dom.innerHTML = temp;
-        c = `${c}${temp}`;
+    if(isImg){ // 用户传递了一张图片
+        const dom = document.createElement("img");
+        dom.style.cssText = ["display: block","max-width:100%","max-height:100%"].join(";");
+        dom.src = value;
         div.appendChild(dom);
-      }
-    } else {
-      const uW = this.state.width / this.state.len;        // 每个字符占的宽度
-      for (let i = 0; i < this.state.len; i++) {
-        const dom = document.createElement('span');
-        dom.style.cssText = codeCss;
-        const temp = this.state.options.codes[(Math.round(Math.random() * (this.state.options.codes.length - 1)))];
-        dom.innerHTML = temp;
-        c = `${c}${temp}`;
-        div.appendChild(dom);
-      }
+        this.props.onChange && this.props.onChange(null);
+        return null;
     }
+
+    // 不是图片而是普通字符串, 如果value存在说明是用户自定义的字符串
+    let length = value.length || this.state.len; // 字符的长度
+
+      const uW = this.state.width / length/1.01;        // 每个字符占的宽度
+      for (let i = 0; i < length; i++) {
+          const dom = document.createElement('span');
+          dom.style.cssText = this.codeCss(uW,i);
+          const temp = value ? value[i] : this.state.options.codes[(Math.round(Math.random() * (this.state.options.codes.length - 1)))];
+          dom.innerHTML = temp;
+          c = `${c}${temp}`;
+          div.appendChild(dom);
+      }
 
     // 生成好看的线条
     for (let i = 0; i < this.state.options.lines; i++) {
@@ -162,9 +164,8 @@ class Vcode extends React.Component {
       dom.style.cssText = this.lineCss();
       div.appendChild(dom);
     }
-    if (this.props.onChange) {
-      this.props.onChange(c);
-    }
+    this.props.onChange && this.props.onChange(c); // 触发回调
+      return c;
   }
 
   /** 生成范围随机数 **/

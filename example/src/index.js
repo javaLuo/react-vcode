@@ -1,32 +1,17 @@
 import React from 'react';
 import Vcode from '../../dist/index.js';
 import ReactDom from 'react-dom';
-
+import ImgTest1 from '../assets/test1.png';
+import ImgTest2 from '../assets/test2.png';
 class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input1: '', // 第1个input的值
+      img: 1,
       input2: '', // 第2个input的值
-      vcode1: '', // 第1个vcode的值
-      vcode2: '', // 第2个vcode的值
+      vcode2: '-1', // 第2个vcode的值
       code: '',
-      testinput: '',
     };
-  }
-
-  onInput1Change(e) {
-    this.setState({
-      input1: e.target.value,
-    });
-  }
-
-  onVcode1Change(v) {
-    console.log()
-    this.setState({
-      vcode1: v,
-      code: this.state.testinput
-    });
   }
 
   onInput2Change(e) {
@@ -36,46 +21,49 @@ class Test extends React.Component {
   }
 
   onVcode2Change(v) {
+    console.log("触发回调onChange", v);
     this.setState({
       vcode2: v,
     });
   }
 
-  onButton() {
-    this.setState({
-      code: this.state.testinput
-    });
-  }
+    onChangeImg(){
+      this.setState({
+          img: this.state.img === 1 ? 2 : 1
+      })
+    }
+    onChangeStr(){
+      const a = ['a','b','c','d'];
+      const d = [];
+      for(let i=0;i<5;i++){
+        d.push(Math.round(Math.random()*3));
+      }
+      this.setState({
+          code: d.join(""),
+      })
+    }
 
-  onTestInput(e) {
-    this.setState({
-      testinput: e.target.value 
-    });
-  }
+    onVcodeClick(){
+        this.onChangeStr();
+    }
   render() {
     return (
       <div>
         <div>
-          <div>基本使用</div>
-          <input type='text' value={this.state.input1} onChange={(e) => this.onInput1Change(e)} maxLength={10} />
-          <Vcode
-            onChange={(v) => this.onVcode1Change(v)}
-            value={this.state.code}
+          <input
+              type='text'
+              placeholder="请输入正确的验证码"
+              value={this.state.input2}
+              onChange={(e) => this.onInput2Change(e)}
+              maxLength={20}
           />
-          <span>{this.state.input1 === this.state.vcode1 ? 'success' : 'error'}</span>
-          <input value={this.state.testinput} onChange={(e) => this.onTestInput(e)}/>
-          <button onClick={() => this.onButton()}>手动改变</button>
-        </div>
-        <hr />
-        <div>
-          <div>自定义参数</div>
-          <input type='text' value={this.state.input2} onChange={(e) => this.onInput2Change(e)} maxLength={10} />
           <Vcode
             onChange={(v) => this.onVcode2Change(v)}
+            onClick={(v) => this.onVcodeClick(v)}
             length={6}
             width={200}
             height={100}
-            value='Hello World'
+            value={this.state.img === 1 ? ImgTest2 : ImgTest1}
             className="classNameTest"
             options={{
               codes: ['A', 'B', 'C', 'D', 'E'],
@@ -84,8 +72,11 @@ class Test extends React.Component {
               lineWidthMax: 200
             }}
           />
-          <span>{this.state.input2 === this.state.vcode2 ? 'success' : 'error'}</span>
+          <span>{this.state.input2 === this.state.vcode2 ? '输入正确' : '输入错误'}</span>
         </div>
+        <hr/>
+        <button onClick={()=>this.onChangeImg()}>更换图片</button>
+        <button onClick={()=>this.onChangeStr()}>外部生成随机字符串</button>
       </div>
     );
   }

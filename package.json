@@ -1,6 +1,6 @@
 {
   "name": "react-vcode",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "a react verification code component",
   "main": "dist/index.js",
   "scripts": {
@@ -28,13 +28,14 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "css-loader": "^0.28.2",
+    "file-loader": "^1.1.11",
     "style-loader": "^0.18.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.0",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   }
 }
