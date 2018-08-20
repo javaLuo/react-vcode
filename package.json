@@ -1,6 +1,6 @@
 {
   "name": "react-vcode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a react verification code component",
   "main": "dist/index.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "es6-object-assign": "^1.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }
