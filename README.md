@@ -3,9 +3,9 @@
 
 ## 示例图
 
-![image](https://github.com/javaLuo/react-vcode/blob/master/example/assets/test1.png)
+![image](example/assets/test1.png)
 
-![image](https://github.com/javaLuo/react-vcode/blob/master/example/assets/test2.png)
+![image](example/assets/test2.png)
 
 
 ## 1. 安装
