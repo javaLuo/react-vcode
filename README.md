@@ -1,4 +1,4 @@
-# react-vcode [![npm](https://img.shields.io/npm/v/react-vcode.svg)](https://www.npmjs.com/package/react-vcode) [![codebeat badge](https://codebeat.co/badges/6b270f5e-c8d9-4f47-9f84-2833fcf897aa)](https://codebeat.co/projects/github-com-javaluo-react-vcode-master) [![npm](https://img.shields.io/npm/dy/react-vcode.svg)](https://www.npmjs.com/package/react-vcode)
+# react-vcode [![npm](https://img.shields.io/npm/v/react-vcode.svg)](https://www.npmjs.com/package/react-vcode) [![codebeat badge](https://codebeat.co/badges/6b270f5e-c8d9-4f47-9f84-2833fcf897aa)](https://codebeat.co/projects/github-com-javaluo-react-vcode-master) [![npm downloads](https://img.shields.io/npm/dt/react-vcode.svg)](https://www.npmjs.com/package/react-vcode)
 一个简单的React验证码组件
 
 ## 示例图
