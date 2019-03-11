@@ -1,6 +1,6 @@
 import React from 'react';
-// equire('es6-object-assign').polyfill();
-class Vcode extends React.Component {
+require('es6-object-assign').polyfill();
+class Vcode extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,25 +114,27 @@ class Vcode extends React.Component {
   }
 
   /** 组件参数改变 **/
-  UNSAFE_componentWillReceiveProps(nextP, nextS) {
-    if (this.props.value !== nextP.value) {
-      this.onDraw(nextP.value);
+  componentDidUpdate(prevP){
+    if (this.props.value !== prevP.value) {
+      this.onDraw(this.props.value);
     }
-    if (this.props.width !== nextP.width || this.props.height !== nextP.height) {
+    if (this.props.width !== prevP.width || this.props.height !== prevP.height || this.props.style !== prevP.style) {
       this.setState({
-        width: nextP.width,
-        height: nextP.height,
+        width: this.props.width || 150,
+        height: this.props.height || 40,
+        style: Object.assign({},this.state.style, {
+          width: this.props.width ? `${this.props.width}px` : '150px',
+          height: this.props.height ? `${this.props.height}px` : '40px',
+        })
       });
     }
   }
 
-  /** 用户点击的验证码图片 **/
+  /** 用户点击了验证码图片 **/
   onClick() {
-    const div = document.getElementById(this.state.id);
-    // 如果this.props.value有值，表明值是外部受控，这个地方不需要重新渲染
-    let code = null;
+    // 如果用户没有设置值，就直接重新生成
     if (!this.props.value) {
-      code = this.onDraw(this.props.value);
+      this.onDraw(this.props.value);
     }
     this.props.onClick && this.props.onClick(); // 触发外部的onClick,什么都不返回
   }

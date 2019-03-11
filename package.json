@@ -1,6 +1,6 @@
 {
   "name": "react-vcode",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "a react verification code component",
   "main": "dist/index.js",
   "scripts": {
