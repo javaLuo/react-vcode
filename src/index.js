@@ -1,6 +1,6 @@
 import React from 'react';
 require('es6-object-assign').polyfill();
-class Vcode extends React.PureComponent {
+export default class Vcode extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,7 +114,7 @@ class Vcode extends React.PureComponent {
   }
 
   /** 组件参数改变 **/
-  componentDidUpdate(prevP){
+  componentDidUpdate(prevP) {
     if (this.props.value !== prevP.value) {
       this.onDraw(this.props.value);
     }
@@ -122,10 +122,10 @@ class Vcode extends React.PureComponent {
       this.setState({
         width: this.props.width || 150,
         height: this.props.height || 40,
-        style: Object.assign({},this.state.style, {
+        style: Object.assign({}, this.state.style, {
           width: this.props.width ? `${this.props.width}px` : '150px',
           height: this.props.height ? `${this.props.height}px` : '40px',
-        })
+        }),
       });
     }
   }
@@ -228,8 +228,6 @@ class Vcode extends React.PureComponent {
     return <div id={this.state.id} style={this.state.style} className={this.props.className} onClick={() => this.onClick()} />;
   }
 }
-
-export default Vcode;
 
 /**
   id: P.string, // ID
