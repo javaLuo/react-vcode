@@ -23,7 +23,7 @@ class Test extends React.Component {
 
   onVcode2Change(v) {
     console.log('触发回调onChange', v);
-    if(v){
+    if (v) {
       this.setState({
         vcode2: v,
       });
@@ -35,7 +35,7 @@ class Test extends React.Component {
     this.setState({
       img: imgindex,
       code: imgindex === 1 ? ImgTest1 : ImgTest2,
-      vcode2: '1234'
+      vcode2: '1234',
     });
   }
   onChangeStr() {
@@ -53,11 +53,11 @@ class Test extends React.Component {
   onVcodeClick() {
     this.onChangeStr();
   }
-  onChangeWidth(){
+  onChangeWidth() {
     const l = Math.round(Math.random() * 800 + 400);
     console.log('改变width:', l);
     this.setState({
-      width: l
+      width: l,
     });
   }
   render() {
@@ -65,7 +65,7 @@ class Test extends React.Component {
       <div>
         <div>
           <input type="text" placeholder="请输入正确的验证码" value={this.state.input2} onChange={e => this.onInput2Change(e)} maxLength={20} />
-          <Vcode onChange={(v)=>this.onVcode2Change(v)} value={this.state.code} width={this.state.width}/>
+          <Vcode onChange={v => this.onVcode2Change(v)} value={this.state.code} width={this.state.width} />
           <span>{this.state.input2 === this.state.vcode2 ? '输入正确' : '输入错误'}</span>
         </div>
         <hr />
