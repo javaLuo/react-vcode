@@ -89,7 +89,14 @@ options:{           // 验证码相关自定义参数
 />
 ````
 
-## 4. 额外说明
+## 4. 手动刷新验证码
+```javascript
+<Vcode ref={(obj)=>this.vcode = obj} />
+
+this.vcode.onClick(); // 调用内部的onClick方法可刷新验证码
+```
+
+## 5. 额外说明
 
 - 之前用过一个验证码插件叫 vcode.js, 不知道作者。 本react-vcode是通过vcode.js的源码进行修改加工，转成了react组件。感谢原作者。
 
