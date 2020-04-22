@@ -1,16 +1,16 @@
-import React from 'react';
-import Vcode from '../../dist/index.js';
-import ReactDom from 'react-dom';
-import ImgTest1 from '../assets/test1.png';
-import ImgTest2 from '../assets/test2.png';
+import React from "react";
+import Vcode from "../../dist/index.js";
+import ReactDom from "react-dom";
+import ImgTest1 from "../assets/test1.png";
+import ImgTest2 from "../assets/test2.png";
 class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       img: 1,
-      input2: '', // 第2个input的值
-      vcode2: '-1', // 第2个vcode的值
-      code: '',
+      input2: "", // 第2个input的值
+      vcode2: "-1", // 第2个vcode的值
+      code: "",
       width: 200,
     };
   }
@@ -22,7 +22,7 @@ class Test extends React.Component {
   }
 
   onVcode2Change(v) {
-    console.log('触发回调onChange', v);
+    console.log("触发回调onChange", v);
     if (v) {
       this.setState({
         vcode2: v,
@@ -35,18 +35,18 @@ class Test extends React.Component {
     this.setState({
       img: imgindex,
       code: imgindex === 1 ? ImgTest1 : ImgTest2,
-      vcode2: '1234',
+      vcode2: imgindex === 1 ? "wow1" : "helloworld",
     });
   }
   onChangeStr() {
-    const a = ['a', 'b', 'c', 'd'];
+    const a = ["a", "b", "c", "d"];
     const d = [];
     for (let i = 0; i < 5; i++) {
       d.push(a[Math.round(Math.random() * 3)]);
     }
-    console.log('code:', d);
+    console.log("code:", d);
     this.setState({
-      code: d.join(''),
+      code: d.join(""),
     });
   }
 
@@ -55,7 +55,7 @@ class Test extends React.Component {
   }
   onChangeWidth() {
     const l = Math.round(Math.random() * 800 + 400);
-    console.log('改变width:', l);
+    console.log("改变width:", l);
     this.setState({
       width: l,
     });
@@ -64,9 +64,21 @@ class Test extends React.Component {
     return (
       <div>
         <div>
-          <input type="text" placeholder="请输入正确的验证码" value={this.state.input2} onChange={e => this.onInput2Change(e)} maxLength={20} />
-          <Vcode onChange={v => this.onVcode2Change(v)} value={this.state.code} width={this.state.width} />
-          <span>{this.state.input2 === this.state.vcode2 ? '输入正确' : '输入错误'}</span>
+          <input
+            type="text"
+            placeholder="请输入正确的验证码"
+            value={this.state.input2}
+            onChange={(e) => this.onInput2Change(e)}
+            maxLength={20}
+          />
+          <Vcode
+            onChange={(v) => this.onVcode2Change(v)}
+            value={this.state.code}
+            width={this.state.width}
+          />
+          <span>
+            {this.state.input2 === this.state.vcode2 ? "输入正确" : "输入错误"}
+          </span>
         </div>
         <hr />
         <button onClick={() => this.onChangeImg()}>更换图片</button>
@@ -77,4 +89,4 @@ class Test extends React.Component {
   }
 }
 
-ReactDom.render(<Test />, document.getElementById('root'));
+ReactDom.render(<Test />, document.getElementById("root"));

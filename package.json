@@ -1,13 +1,18 @@
 {
   "name": "react-vcode",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "a react verification code component",
   "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.js",
     "build:babel": "babel src -d lib",
     "build": "webpack --config webpack.build.config.js --progress --profile --colors"
   },
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/javaLuo/react-vcode.git"
@@ -22,29 +27,38 @@
     "url": "https://github.com/javaLuo/react-vcode/issues"
   },
   "homepage": "https://github.com/javaLuo/react-vcode#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-proposal-decorators": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.4.2",
-    "autoprefixer": "^9.5.0",
-    "babel-loader": "^8.0.5",
-    "css-loader": "^2.1.1",
-    "file-loader": "^3.0.1",
-    "style-loader": "^0.23.1",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.29.6",
-    "webpack-bundle-analyzer": "^3.1.0",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
-  },
   "dependencies": {
     "es6-object-assign": "^1.1.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/runtime": "^7.9.2",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "autoprefixer": "^9.7.6",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "file-loader": "^6.0.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.1.4",
+    "typescript": "^3.8.3",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.7.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "browserslist": [
     "iOS >= 8",
