@@ -262,11 +262,14 @@ export default class Vcode extends React.PureComponent<Props, State> {
    * */
   onDraw(value: string | undefined) {
     let c = ""; // 存储生成的code
-    const div = document.getElementById(this.state.id) as HTMLElement;
+    const div = document.getElementById(this.state.id);
+
     const isImg: boolean = /^http[s]*:\/\/|\.jpg$|\.png$|\.jpeg$|\.gif$|\.bmp$|\.webp$|^data:image/.test(
       value || ""
     ); // 是否是图片
-    div.innerHTML = "";
+    if (div) {
+      div.innerHTML = "";
+    }
 
     if (isImg) {
       // 用户传递了一张图片
@@ -277,7 +280,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
         "max-height:100%",
       ].join(";");
       dom.src = value as string;
-      div.appendChild(dom);
+      div && div.appendChild(dom);
       this.props.onChange && this.props.onChange(null);
       return null;
     }
@@ -296,14 +299,14 @@ export default class Vcode extends React.PureComponent<Props, State> {
           ];
       dom.innerHTML = String(temp);
       c = `${c}${temp}`;
-      div.appendChild(dom);
+      div && div.appendChild(dom);
     }
 
     // 生成好看的线条
     for (let i = 0; i < this.state.options.lines; i++) {
       const dom = document.createElement("div");
       dom.style.cssText = this.lineCss();
-      div.appendChild(dom);
+      div && div.appendChild(dom);
     }
     this.props.onChange && this.props.onChange(c); // 触发回调
     return c;
