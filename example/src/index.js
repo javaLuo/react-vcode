@@ -55,7 +55,6 @@ class Test extends React.Component {
   }
   onChangeWidth() {
     const l = Math.round(Math.random() * 800 + 400);
-    console.log("改变width:", l);
     this.setState({
       width: l,
     });
@@ -64,21 +63,9 @@ class Test extends React.Component {
     return (
       <div>
         <div>
-          <input
-            type="text"
-            placeholder="请输入正确的验证码"
-            value={this.state.input2}
-            onChange={(e) => this.onInput2Change(e)}
-            maxLength={20}
-          />
-          <Vcode
-            onChange={(v) => this.onVcode2Change(v)}
-            value={this.state.code}
-            width={this.state.width}
-          />
-          <span>
-            {this.state.input2 === this.state.vcode2 ? "输入正确" : "输入错误"}
-          </span>
+          <input type="text" placeholder="请输入正确的验证码" value={this.state.input2} onChange={e => this.onInput2Change(e)} maxLength={20} />
+          <Vcode onChange={v => this.onVcode2Change(v)} value={this.state.code} width={this.state.width} />
+          <span>{this.state.input2 === this.state.vcode2 ? "输入正确" : "输入错误"}</span>
         </div>
         <hr />
         <button onClick={() => this.onChangeImg()}>更换图片</button>

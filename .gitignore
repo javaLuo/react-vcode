@@ -66,3 +66,4 @@ mytest/*
 # build
 dist/*
 !dist/.gitkeep
+*.lock

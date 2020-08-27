@@ -42,8 +42,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      id:
-        this.props.id || `${new Date().getTime()}_${Math.random().toFixed(4)}`, // 需要一个唯一的ID，因为vcode要直接操作dom
+      id: this.props.id || `${Date.now()}_${Math.random().toFixed(4)}`, // 需要一个唯一的ID，因为vcode要直接操作dom
       width: this.props.width || 150, // vcode宽度
       height: this.props.height || 40, // vcode高度
       len: this.props.length || 4, // 生成几位code
@@ -67,44 +66,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
       options: (() => {
         // 初始化参数
         const a: Options = {
-          codes: [
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h",
-            "i",
-            "j",
-            "k",
-            "l",
-            "m",
-            "o",
-            "p",
-            "q",
-            "r",
-            "s",
-            "t",
-            "x",
-            "u",
-            "v",
-            "y",
-            "z",
-            "w",
-            "n",
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-          ],
+          codes: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "o", "p", "q", "r", "s", "t", "x", "u", "v", "y", "z", "w", "n", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
           fontSizeMin: 22, // 字体尺寸最小值
           fontSizeMax: 26, // 字体尺寸最大值
           colors: [
@@ -156,11 +118,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
     if (this.props.value !== prevP.value) {
       this.onDraw(this.props.value);
     }
-    if (
-      this.props.width !== prevP.width ||
-      this.props.height !== prevP.height ||
-      this.props.style !== prevP.style
-    ) {
+    if (this.props.width !== prevP.width || this.props.height !== prevP.height || this.props.style !== prevP.style) {
       this.setState({
         width: this.props.width || 150,
         height: this.props.height || 40,
@@ -189,15 +147,8 @@ export default class Vcode extends React.PureComponent<Props, State> {
    */
   codeCss(uW: number, i: number): string {
     return [
-      `font-size:${this.randint(
-        this.state.options.fontSizeMin,
-        this.state.options.fontSizeMax
-      )}px`,
-      `color:${
-        this.state.options.colors[
-          this.randint(0, this.state.options.colors.length - 1)
-        ]
-      }`,
+      `font-size:${this.randint(this.state.options.fontSizeMin, this.state.options.fontSizeMax)}px`,
+      `color:${this.state.options.colors[this.randint(0, this.state.options.colors.length - 1)]}`,
       "position: absolute",
       `left:${this.randint(uW * i, uW * i + uW - uW / 2)}px`,
       "top:50%",
@@ -206,11 +157,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
       `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
       `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
       `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-      `font-family:${
-        this.state.options.fonts[
-          this.randint(0, this.state.options.fonts.length - 1)
-        ]
-      }`,
+      `font-family:${this.state.options.fonts[this.randint(0, this.state.options.fonts.length - 1)]}`,
       "font-weight:bold",
       "z-index:2",
     ].join(";");
@@ -224,34 +171,17 @@ export default class Vcode extends React.PureComponent<Props, State> {
     return [
       "position: absolute",
       `opacity:${this.randint(3, 8) / 10}`,
-      `width:${this.randint(
-        this.state.options.lineWidthMin,
-        this.state.options.lineWidthMax
-      )}px`,
-      `height:${this.randint(
-        this.state.options.lineHeightMin,
-        this.state.options.lineHeightMax
-      )}px`,
-      `background:${
-        this.state.options.lineColors[
-          this.randint(0, this.state.options.lineColors.length - 1)
-        ]
-      }`,
-      `left:${this.randint(
-        -this.state.options.lineWidthMin / 2,
-        this.state.width
-      )}px`,
+      `width:${this.randint(this.state.options.lineWidthMin, this.state.options.lineWidthMax)}px`,
+      `height:${this.randint(this.state.options.lineHeightMin, this.state.options.lineHeightMax)}px`,
+      `background:${this.state.options.lineColors[this.randint(0, this.state.options.lineColors.length - 1)]}`,
+      `left:${this.randint(-this.state.options.lineWidthMin / 2, this.state.width)}px`,
       `top:${this.randint(0, this.state.height)}px`,
       `transform:rotate(${this.randint(-30, 30)}deg)`,
       `-o-transform:rotate(${this.randint(-30, 30)}deg)`,
       `-ms-transform:rotate(${this.randint(-30, 30)}deg)`,
       `-moz-transform:rotate(${this.randint(-30, 30)}deg)`,
       `-webkit-transform:rotate(${this.randint(-30, 30)}deg)`,
-      `font-family:${
-        this.state.options.fonts[
-          this.randint(0, this.state.options.fonts.length - 1)
-        ]
-      }`,
+      `font-family:${this.state.options.fonts[this.randint(0, this.state.options.fonts.length - 1)]}`,
       `font-weight:${this.randint(400, 900)}`,
     ].join(";");
   }
@@ -264,9 +194,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
     let c = ""; // 存储生成的code
     const div = document.getElementById(this.state.id);
 
-    const isImg: boolean = /^http[s]*:\/\/|\.jpg$|\.png$|\.jpeg$|\.gif$|\.bmp$|\.webp$|^data:image/.test(
-      value || ""
-    ); // 是否是图片
+    const isImg: boolean = /^http[s]*:\/\/|\.jpg$|\.png$|\.jpeg$|\.gif$|\.bmp$|\.webp$|^data:image/.test(value || ""); // 是否是图片
     if (div) {
       div.innerHTML = "";
     }
@@ -274,11 +202,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
     if (isImg) {
       // 用户传递了一张图片
       const dom = document.createElement("img");
-      dom.style.cssText = [
-        "display: block",
-        "max-width:100%",
-        "max-height:100%",
-      ].join(";");
+      dom.style.cssText = ["display: block", "max-width:100%", "max-height:100%"].join(";");
       dom.src = value as string;
       div && div.appendChild(dom);
       this.props.onChange && this.props.onChange(null);
@@ -292,11 +216,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
     for (let i = 0; i < length; i++) {
       const dom = document.createElement("span");
       dom.style.cssText = this.codeCss(uW, i);
-      const temp = value
-        ? value[i]
-        : this.state.options.codes[
-            Math.round(Math.random() * (this.state.options.codes.length - 1))
-          ];
+      const temp = value ? value[i] : this.state.options.codes[Math.round(Math.random() * (this.state.options.codes.length - 1))];
       dom.innerHTML = String(temp);
       c = `${c}${temp}`;
       div && div.appendChild(dom);
@@ -320,13 +240,6 @@ export default class Vcode extends React.PureComponent<Props, State> {
   }
 
   render() {
-    return (
-      <div
-        id={this.state.id}
-        style={this.state.style}
-        className={this.props.className}
-        onClick={() => this.onClick()}
-      />
-    );
+    return <div id={this.state.id} style={this.state.style} className={this.props.className} onClick={() => this.onClick()} />;
   }
 }
