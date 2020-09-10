@@ -22,8 +22,15 @@ import Vcode from 'react-vcode';
  <Vcode />
  
 ````
+## 3. 服务端渲染
+```
+import Vcode from 'react-vcode';
 
-## 3. 自定义参数
+ <Vcode id="vcode" />
+```
+ 需要自己加个id， 不然服务端渲染和本地渲染，id变了会报错，因为Vcode内部使用了随机值
+ 
+## 4. 自定义参数
 
 可自行设置覆盖原有值
 
@@ -89,14 +96,14 @@ options:{           // 验证码相关自定义参数
 />
 ````
 
-## 4. 手动刷新验证码
+## 5. 手动刷新验证码
 ```javascript
 <Vcode ref={(obj)=>this.vcode = obj} />
 
 this.vcode.onClick(); // 调用内部的onClick方法可刷新验证码
 ```
 
-## 5. 额外说明
+## 6. 额外说明
 
 - 之前用过一个验证码插件叫 vcode.js, 不知道作者。 本react-vcode是通过vcode.js的源码进行修改加工，转成了react组件。感谢原作者。
 
