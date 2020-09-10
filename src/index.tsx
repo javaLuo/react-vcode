@@ -137,9 +137,9 @@ export default class Vcode extends React.PureComponent<Props, State> {
             "#008888",
           ],
           lineHeightMin: 1, // 线的粗细最小值
-          lineHeightMax: 1, // 线的粗细最大值
-          lineWidthMin: 20, // 线的长度最小值
-          lineWidthMax: 60, // 线的长度最大值
+          lineHeightMax: 2, // 线的粗细最大值
+          lineWidthMin: 40, // 线的长度最小值
+          lineWidthMax: 100, // 线的长度最大值
         };
         if (this.props.options) {
           return Object.assign({}, a, this.props.options);
@@ -188,9 +188,15 @@ export default class Vcode extends React.PureComponent<Props, State> {
    * 随机生成一个Code的CSS样式
    * @param uW 每个字符所占的宽度
    * @param i 当前字符的下标
+   * @param maxW 最大偏移值
    * @return CSS字符串
    */
-  codeCss(uW: number, i: number): string {
+  codeCss(uW: number, i: number, maxW: number): string {
+    const transStr = `rotate(${this.randint(
+      -15,
+      15,
+      true
+    )}deg) translateY(${this.randint(-55, -45, true)}%)`;
     return [
       `font-size:${this.randint(
         this.state.options.fontSizeMin,
@@ -202,13 +208,12 @@ export default class Vcode extends React.PureComponent<Props, State> {
         ]
       }`,
       "position: absolute",
-      `left:${this.randint(uW * i, uW * i + uW - uW / 2)}px`,
+      `left:${Math.max(
+        Math.min(this.randint(uW * i, uW * i + uW / 2, true), maxW),
+        uW / 4
+      )}px`,
       "top:50%",
-      `transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-      `-o-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-      `-ms-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-      `-moz-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
-      `-webkit-transform:rotate(${this.randint(-15, 15)}deg) translateY(-50%)`,
+      `transform:${transStr};-o-transform:${transStr};-ms-transform:${transStr};-moz-transform:${transStr};-webkit-transform:${transStr}`,
       `font-family:${
         this.state.options.fonts[
           this.randint(0, this.state.options.fonts.length - 1)
@@ -224,6 +229,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
    * @return CSS字符串
    */
   lineCss(): string {
+    const transStr = `rotate(${this.randint(-30, 30)}deg)`;
     return [
       "position: absolute",
       `opacity:${this.randint(3, 8) / 10}`,
@@ -245,17 +251,7 @@ export default class Vcode extends React.PureComponent<Props, State> {
         this.state.width
       )}px`,
       `top:${this.randint(0, this.state.height)}px`,
-      `transform:rotate(${this.randint(-30, 30)}deg)`,
-      `-o-transform:rotate(${this.randint(-30, 30)}deg)`,
-      `-ms-transform:rotate(${this.randint(-30, 30)}deg)`,
-      `-moz-transform:rotate(${this.randint(-30, 30)}deg)`,
-      `-webkit-transform:rotate(${this.randint(-30, 30)}deg)`,
-      `font-family:${
-        this.state.options.fonts[
-          this.randint(0, this.state.options.fonts.length - 1)
-        ]
-      }`,
-      `font-weight:${this.randint(400, 900)}`,
+      `transform:${transStr};-o-transform:${transStr};-ms-transform:${transStr};-moz-transform:${transStr};-webkit-transform:${transStr}`,
     ].join(";");
   }
 
@@ -290,11 +286,12 @@ export default class Vcode extends React.PureComponent<Props, State> {
 
     // 不是图片而是普通字符串, 如果value存在说明是用户自定义的字符串
     const length = value ? value.length : this.state.len; // 字符的长度
+    const uW: number = this.state.width / length; // 每个字符能够占据的范围宽度
+    const maxW = this.state.width - uW / 4; // 最大可偏移距离
 
-    const uW: number = this.state.width / length / 1.01; // 每个字符占的宽度
     for (let i = 0; i < length; i++) {
       const dom = document.createElement("span");
-      dom.style.cssText = this.codeCss(uW, i);
+      dom.style.cssText = this.codeCss(uW, i, maxW);
       const temp = value
         ? value[i]
         : this.state.options.codes[
@@ -316,10 +313,10 @@ export default class Vcode extends React.PureComponent<Props, State> {
   }
 
   /** 生成范围随机数 **/
-  randint(n: number, m: number): number {
+  randint(n: number, m: number, t?: boolean): number {
     const c = m - n + 1;
     const num = Math.random() * c + n;
-    return Math.floor(num);
+    return t ? num : Math.floor(num);
   }
 
   render() {

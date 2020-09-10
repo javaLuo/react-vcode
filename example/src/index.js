@@ -11,7 +11,7 @@ class Test extends React.Component {
       input2: "", // 第2个input的值
       vcode2: "-1", // 第2个vcode的值
       code: "",
-      width: 200,
+      width: 150,
     };
   }
 
