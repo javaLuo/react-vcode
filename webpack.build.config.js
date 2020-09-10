@@ -15,6 +15,7 @@ module.exports = {
     filename: "[name].js",
     library: "vcode",
     libraryTarget: "umd",
+    globalObject: 'this'
     //libraryExport: 'default',
   },
   externals: {

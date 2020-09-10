@@ -15,6 +15,7 @@
     "noImplicitReturns": true,
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
+
     "outDir": "dist",
     "lib": ["es2018", "dom"]
   },
