@@ -82,9 +82,9 @@ options:{           // 验证码相关自定义参数
     '#008888',
   ],
   lineHeightMin: 1, // 线的粗细最小值
-  lineHeightMax: 1, // 线的粗细最大值
-  lineWidthMin: 20, // 线的长度最小值
-  lineWidthMax: 60, // 线的长度最大值
+  lineHeightMax: 2, // 线的粗细最大值
+  lineWidthMin: 40, // 线的长度最小值
+  lineWidthMax: 100, // 线的长度最大值
 }
 
 // 例子：
