@@ -16,7 +16,7 @@ module.exports = {
       {
         test: /\.css?$/,
         use: ["style-loader", "css-loader", "postcss-loader"],
-        include: [path.join(__dirname, "src")],
+        include: [path.join(__dirname, "example")],
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -26,7 +26,7 @@ module.exports = {
       {
         test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|pdf|png)(\?|$)/,
         use: ["file-loader?name=files/[name].[ext]"],
-        include: [path.join(__dirname, "src")],
+        include: [path.join(__dirname, "example")],
       },
     ],
   },

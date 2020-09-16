@@ -3,6 +3,8 @@ import Vcode from "../../dist/index.js";
 import ReactDom from "react-dom";
 import ImgTest1 from "../assets/test1.png";
 import ImgTest2 from "../assets/test2.png";
+import './index.css';
+
 class Test extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,7 @@ class Test extends React.Component {
       input2: "", // 第2个input的值
       vcode2: "-1", // 第2个vcode的值
       code: "",
-      width: 150,
+      width: 100,
     };
   }
 
@@ -64,7 +66,7 @@ class Test extends React.Component {
       <div>
         <div>
           <input type="text" placeholder="请输入正确的验证码" value={this.state.input2} onChange={e => this.onInput2Change(e)} maxLength={20} />
-          <Vcode onChange={v => this.onVcode2Change(v)} onClick={() => console.log('触发onClick') } value={this.state.code} width={this.state.width} />
+          <Vcode onChange={v => this.onVcode2Change(v)} onClick={() => console.log('触发onClick') } value={this.state.code} width={this.state.width} className={'vcode'}/>
           <span>{this.state.input2 === this.state.vcode2 ? "输入正确" : "输入错误"}</span>
         </div>
         <hr />
